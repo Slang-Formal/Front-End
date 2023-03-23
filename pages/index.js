@@ -5,34 +5,28 @@ import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 import { FormEvent } from 'react'
 
-
-
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
   return (
     
-    <html>
-      <body>
-          
-          <h1 style={{ color: 'azure' }}>  Slang to Formal Translator </h1>
+    <>
+      <h1 style={{ color: 'azure' }}>  Slang to Formal Translator </h1>
 
-          <form action = '/api/form' method = 'post'> 
-            <label style={{display: 'block'}} for='sentence'>Enter Sentence:</label>
-            <input type='text' id ='sentence' name = 'sentence'></input>
-            <button type = 'submit'>Submit</button>
-          </form>
+      <form action = '/api/form' method = 'post'> 
+        <label style ={{display: 'block'}} for='sentence'>Enter Sentence:</label>
+        <div><textarea id="sentence" name="sentence" rows="4" cols="50"></textarea></div>
+        <input type = 'submit' value = 'Submit'></input>
+      </form>
           
-          <label style={{display: 'block'}} for="textbox">
-            Output:
-          </label>
+      <label style = {{display: 'block'}} for="textbox">
+        Output:
+      </label>
           
-          <textarea id="textbox" name="textbox" rows="4" cols="50">
-            
-          </textarea>
+      <textarea id="textbox" name="textbox" rows="4" cols="50"></textarea>
 
-        </body>
-    </html>
+    </>
   )
 }
+

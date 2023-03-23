@@ -12,5 +12,5 @@ export default function handler(req, res) {
     return res.status(400).json({ data: "Sentence was not found" });
   }
 
-  res.status(200).json({ region: 'aussie' });
+  res.status(200).json({ region: body.sentence });
 }
