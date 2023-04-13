@@ -5,29 +5,14 @@ import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 import { FormEvent } from 'react'
 import { useState, useEffect } from 'react'
-import { FormLabel, Textarea, Text } from '@chakra-ui/react'
-import { Heading, Button, ButtonGroup, useColorMode, Box } from '@chakra-ui/react'
+import { FormLabel, Textarea, Text, FormControl } from '@chakra-ui/react'
+import { Heading, Button, ButtonGroup, useColorMode, Box ,Flex } from '@chakra-ui/react'
 
 
 export default function Home() {
   const [value, setValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [text, setText] = useState('')
-  const { colorMode, toggleColorMode } = useColorMode();
-  const [colorIndex, setColorIndex] = useState(0);
-  const colors = ["red.200", "green.200", "blue.200"];
-  const ColorCycle = colors[colorIndex];
-const [hue, setHue] = useState(200);
-  
-    useEffect(() => {
-      const intervalId = setInterval(() => {
-        setHue(hue => (hue + 1) % 360);
-      }, 1000);
-      return () => clearInterval(intervalId);
-    }, []);
-  
-    const gradient = `linear-gradient(to right, hsl(${hue}, 100%, 50%), hsl(${(hue + 120) % 360}, 100%, 50%), hsl(${(hue + 240) % 360}, 100%, 50%))`;
-  
 
 
   const handleClick = () => {
@@ -38,13 +23,6 @@ const [hue, setHue] = useState(200);
     }, '1000' ) 
   };
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setColorIndex((colorIndex) => (colorIndex + 1) % colors.length);
-    }, 1000);
-  
-    return () => clearInterval(intervalId);
-  }, []);
 
 
   function handleInputChange(event) {
@@ -54,65 +32,75 @@ const [hue, setHue] = useState(200);
   return (
     
     <>
-      <Heading 
-      size = '4xl'
-      bg={gradient}
-      backgroundClip="text"
-      textFillColor="transparent"
-      _hover={{ bg: gradient, textFillColor: "white" }}
-      transition="background 0.3s ease-in-out, text-fill-color 0.3s ease-in-out"
-      textAlign = 'center'>  
-      Slang to Formal Translator 
-      </Heading>
-      <div>
-      <FormLabel htmlFor="textarea" fontWeight = 'bold' fontSize ='30px' textAlign= 'left' marginLeft='7' mb ='0px'>
-        Input:
-      </FormLabel>
-      <Textarea
-        value={value}
-        onChange={handleInputChange}
-        placeholder='Enter a sentence here'
-        size='sm'
-        id='textarea'
-        name='textarea'
-        padding="10px"
-        margin="10px"
-        width="80%"
-        height="200px"
-        marginLeft='7'
-      />
-      </div>
-
-
-      <div>
-      <Button 
-      colorScheme='gray' 
-      size='md'
-      textAlign= 'left' 
-      marginLeft='7'
-      isLoading = {isLoading}
-      onClick ={handleClick}
-      loadingText='Translating'
-      >{isLoading? 'Translating':'Translate'}</Button>
-      </div>
-      
+      <Box marginY="20px">
+        <Heading 
+        size = '4xl'
+        textAlign = 'center'>  
+        Slang to Formal Translator 
+        </Heading>
+      </Box>
+     
+      <Box position='relative' align='center'>
+          <Flex justify="center">
+            <FormControl mr={8}>
+              <FormLabel htmlFor="textarea" fontWeight = 'bold' fontSize ='30px' align='center' mb ='0px' width='80%'>
+                Input:
+              </FormLabel>
+              <Textarea
+                value={value}
+                onChange={handleInputChange}
+                placeholder='Enter a sentence here'
+                size='sm'
+                id='textarea'
+                name='textarea'
+                padding="10px"
+                margin="10px"
+                width="80%"
+                height="200px"
+                align="center"
+              />
+            </FormControl>
+            
+          <FormControl ml={8}>
+            <FormLabel  htmlFor="textbox" fontWeight = 'bold' fontSize ='30px' mb = '0px' width='80%'>
+              Output:
+            </FormLabel>
+            <Textarea
+              value ={text}
+              size='sm'
+              id='textbox'
+              name='textbox'
+              padding="10px"
+              margin="10px"
+              width="80%"
+              height="200px"
+              isReadOnly
+            />
+          </FormControl>   
           
-      <FormLabel  htmlFor="textbox" fontWeight = 'bold' fontSize ='30px' marginLeft='7' mb = '0px'>
-        Output:
-      </FormLabel>
-      <Textarea
-        value ={text}
-        size='sm'
-        id='textbox'
-        name='textbox'
-        padding="10px"
-        margin="10px"
-        width="80%"
-        height="200px"
-        marginLeft='7'
-        isReadOnly
-      />
-          
+          </Flex> 
+          <Flex mt={8}>
+            <Button 
+            colorScheme='gray' 
+            size='md'
+            textAlign= 'left' 
+            isLoading = {isLoading}
+            onClick ={handleClick}
+            loadingText='Translating'
+            ml={70}
+            >{isLoading? 'Translating':'Translate'}</Button>
+          </Flex>
+      </Box>
+
+      <Box ml={70}>
+        <Flex alignItems='cetner' mt={8}>
+          <Text fontWeight='bold' fontSize ='20px'>
+            Predicted Region:      
+          </Text>
+          <Text fontSize ='20px'>{value}</Text>
+        </Flex>
+      </Box>  
+
     </>
   )
 }
