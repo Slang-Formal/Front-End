@@ -1,3 +1,6 @@
+
+
+ 
 import Head from 'next/head'
 import Image from 'next/image'
 import '@fontsource/raleway/400.css'
@@ -19,7 +22,35 @@ export default function Home() {
   const [text, setText] = useState('')
   const [inputValue, setInputValue] = useState('');
   const [outputValue, setOutputValue] = useState('');
+  const [text2, setText2] = useState('')
+  const [text3, setText3] = useState('')
+  const [text4, setText4] = useState('')
 
+ 
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const response = await fetch('http://127.0.0.1:8000/slangtranslator/api/submit-string/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({string:inputValue})
+      });
+      const data = await response.json();
+      setIsLoading(false);
+      setText(data.received_string);
+      setValue(data.region);
+      setText2(data.age_range)
+      setText3(data.percent_slang)
+      setText4(data.sentiment)
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
   const handleClick = () => {
     setIsLoading(true);
@@ -34,10 +65,6 @@ export default function Home() {
   }
 
 
-
-  function handleInputChange(event) {
-    setValue(event.target.value)
-  }
 
   const{colorMode, toggleColorMode} = useColorMode()
   const isDark = colorMode == 'dark'
@@ -76,6 +103,7 @@ export default function Home() {
           </Box>
         </Box>
 
+
       </VStack>
      
       <Box position='relative' align='center'>
@@ -85,7 +113,7 @@ export default function Home() {
                   Input:
                 </FormLabel>
                 <Textarea
-                  value={value}
+                  value={inputValue}
                   onChange={handleInputChange}
                   placeholder='Enter slang here'
                   size='sm'
@@ -131,7 +159,7 @@ export default function Home() {
             size='md'
             textAlign= 'left' 
             isLoading = {isLoading}
-            onClick ={handleClick}
+            onClick ={handleSubmit}
             loadingText='Translating'
             ml={70}
             >{isLoading? 'Translating':'Translate'}</Button>
@@ -151,7 +179,7 @@ export default function Home() {
           <Text fontWeight='semibold' fontSize ='23px' mr={2}>
             Predicted Age:      
           </Text>
-          <Text fontSize ='23px'>{value}</Text>
+          <Text fontSize ='23px'>{text2}</Text>
         </Flex>
       </Box>  
       <Box ml={70}>
@@ -159,11 +187,18 @@ export default function Home() {
           <Text fontWeight='semibold' fontSize ='23px' mr={2}>
             Percentage of Slang:      
           </Text>
-          <Text fontSize ='23px'>{value}</Text>
+          <Text fontSize ='23px'>{text3}</Text>
         </Flex>
-      </Box>  
+      </Box>
+      <Box ml={70}>
+        <Flex alignItems='center' mt={8}>
+          <Text fontWeight='semibold' fontSize ='23px' mr={2}>
+            Sentiment Analysis:      
+          </Text>
+          <Text fontSize ='23px'>{text4}</Text>
+        </Flex>
+      </Box>   
 
     </>
   )
 }
-
