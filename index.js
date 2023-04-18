@@ -45,7 +45,7 @@ export default function Home() {
   return (
     
     <>
-      <VStack p={6} alignText='center'>
+      <VStack p={6} aligntext='center'>
         <Box w='100%' alignItems='center'>
           <Flex w='100%' alignItems='center' justifyContent='center'>
           <Heading 
@@ -86,6 +86,7 @@ export default function Home() {
                   align="center"
                   borderColor='blue.500'
                   borderWidth='1.5px'
+                  style={{ fontSize: '20px' }} 
                 />
               </FormControl>
             
@@ -105,6 +106,7 @@ export default function Home() {
               isReadOnly
               borderColor='blue.500'
               borderWidth='1.5px'
+              style={{ fontSize: '20px' }} 
             />
           </FormControl>   
           
