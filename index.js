@@ -53,15 +53,27 @@ export default function Home() {
           stlye={{fontFamily: 'heading'}}
           bgGradient="linear(to-r, cyan.400, blue.500)"
           bgClip="text"
-          ml={260}
-          lineHeight={1.3}
+          ml={500}
+          lineHeight={2}
           textAlign = 'center'>  
-          Slang to Formal Translator 
+          SlangSwitch 
           </Heading>
           <Spacer></Spacer>
           <IconButton ml={2} icon={<FaGithub/>} onClick={handleGit}></IconButton>
           <IconButton ml={8} icon={isDark ? <FaSun /> : <FaMoon/>} isRound='true' onClick={toggleColorMode}></IconButton>
           </Flex>
+          <Box>
+            <Heading
+            style={{ fontSize: '30px' }} 
+            stlye={{fontFamily: 'heading'}}
+            bgGradient="linear(to-r, blue.500, cyan.400)"
+            bgClip="text"
+            ml={4}
+            lineHeight={1.3}
+            textAlign = 'center'>
+            A Slang to Formal Translator
+            </Heading>
+          </Box>
         </Box>
 
       </VStack>
@@ -75,7 +87,7 @@ export default function Home() {
                 <Textarea
                   value={value}
                   onChange={handleInputChange}
-                  placeholder='Enter a sentence here'
+                  placeholder='Enter slang here'
                   size='sm'
                   id='textarea'
                   name='textarea'
