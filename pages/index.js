@@ -30,7 +30,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const response = await fetch('http://127.0.0.1:8000/slangtranslator/api/submit-string/', {
+    const response = await fetch('https://back-end-gamma-sooty.vercel.app/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
