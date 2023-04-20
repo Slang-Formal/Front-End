@@ -1,4 +1,3 @@
- 
 import Head from 'next/head'
 import Image from 'next/image'
 import '@fontsource/raleway/400.css'
@@ -10,7 +9,7 @@ import { FormEvent } from 'react'
 import {FaSun, FaMoon, FaGithub} from 'react-icons/fa'
 import{GiCancel} from 'react-icons/gi'
 import { useState, useEffect } from 'react'
-import { FormLabel, Textarea, Text, FormControl, IconButton, Spacer, ChakraProvider } from '@chakra-ui/react'
+import { FormLabel, Textarea, Text, Center, CSSReset, FormControl, IconButton, Spacer, ChakraProvider } from '@chakra-ui/react'
 import { Heading, Button, ButtonGroup, useColorMode, Box ,Flex, VStack } from '@chakra-ui/react'
 
 
@@ -30,7 +29,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const response = await fetch('https://back-end-gamma-sooty.vercel.app/', {
+    const response = await fetch('http://127.0.0.1:8000/slangtranslator/api/submit-string/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -70,39 +69,33 @@ export default function Home() {
   return (
     
     <>
-      <VStack p={6} aligntext='center'>
-        <Box w='100%' alignItems='center'>
-          <Flex w='100%' alignItems='center' justifyContent='center'>
-          <Heading 
+    
+    <Center>
+      <div>
+        <Heading 
           size = '4xl'
           stlye={{fontFamily: 'heading'}}
           bgGradient="linear(to-r, cyan.400, blue.500)"
           bgClip="text"
-          ml={500}
-          lineHeight={2}
+          lineHeight={1.5}
           textAlign = 'center'>  
           SlangSwitch 
           </Heading>
-          <Spacer></Spacer>
-          <IconButton ml={2} icon={<FaGithub/>} onClick={handleGit}></IconButton>
-          <IconButton ml={8} icon={isDark ? <FaSun /> : <FaMoon/>} isRound='true' onClick={toggleColorMode}></IconButton>
-          </Flex>
-          <Box>
+        </div>   
+
+    </Center>
+    <Center>
             <Heading
             style={{ fontSize: '30px' }} 
             stlye={{fontFamily: 'heading'}}
             bgGradient="linear(to-r, blue.500, cyan.400)"
             bgClip="text"
             ml={4}
-            lineHeight={1.3}
+            lineHeight={2}
             textAlign = 'center'>
             A Slang to Formal Translator
             </Heading>
-          </Box>
-        </Box>
-
-
-      </VStack>
+    </Center>
      
       <Box position='relative' align='center'>
           <Flex justify="center">
@@ -196,7 +189,11 @@ export default function Home() {
           <Text fontSize ='23px'>{text4}</Text>
         </Flex>
       </Box>   
-
+      <Box position="fixed" bottom="0" right="0" p="10">
+        <IconButton ml={2} icon={<FaGithub />} onClick={handleGit} size='lg' />
+        <IconButton ml={8} icon={isDark ? <FaSun /> : <FaMoon />} isRound='true' size='lg' onClick={toggleColorMode} />
+      </Box>
+    
     </>
   )
 }
